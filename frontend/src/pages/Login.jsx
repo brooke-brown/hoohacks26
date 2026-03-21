@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -86,7 +88,7 @@ export default function Login() {
 
             <p style={styles.signup}>
               Don&apos;t have an account?{" "}
-              <button onClick={() => console.log("go to register")} style={styles.signupLink}>Create Account</button>
+              <button onClick={() => navigate('/register')} style={styles.signupLink}>Create Account</button>
             </p>
           </div>
         </div>
