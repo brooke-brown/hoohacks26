@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,9 +19,7 @@ export default function Login() {
 
     setLoading(true);
     try {
-      // TODO: replace with your auth logic (e.g. fetch, Supabase, Firebase, etc.)
-      console.log("Signing in with:", email);
-      await new Promise((res) => setTimeout(res, 1000)); // placeholder
+      navigate("/dashboard");
     } catch (err) {
       setError("Invalid email or password.");
     } finally {
@@ -29,82 +29,56 @@ export default function Login() {
 
   return (
     <div style={styles.root}>
-      {/* Left panel */}
-      <div style={styles.left}>
-        <div style={styles.logo}>Acme Corp</div>
-        <div>
-          <p style={styles.tagline}>
-            Secure access to your enterprise workspace. Welcome back.
-          </p>
-          <div style={styles.dots}>
-            <div style={{ ...styles.dot, ...styles.dotActive }} />
-            <div style={styles.dot} />
-            <div style={styles.dot} />
+      <div style={styles.card}>
+        {/* Brand */}
+        <div style={styles.brand}>
+          <div style={styles.iconBox}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M4 19V6.5C4 5.4 4.9 4.5 6 4.5H18C19.1 4.5 20 5.4 20 6.5V19" stroke="#3B6D11" strokeWidth="1.8" strokeLinecap="round"/>
+              <path d="M4 19H20" stroke="#3B6D11" strokeWidth="1.8" strokeLinecap="round"/>
+              <path d="M9 4.5V12L12 10.5L15 12V4.5" stroke="#3B6D11" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
+          <h1 style={styles.title}>Welcome to Homeschool Hub</h1>
+          <p style={styles.sub}>Sign in to your account to continue</p>
         </div>
-        <p style={styles.footer}>© 2026 Acme Corp. All rights reserved.</p>
-      </div>
 
-      {/* Right panel */}
-      <div style={styles.right}>
-        <div style={styles.card}>
-          <h1 style={styles.heading}>Sign in</h1>
-          <p style={styles.sub}>Enter your credentials to continue</p>
-
-          <form onSubmit={handleSubmit} noValidate>
-            <div style={styles.field}>
-              <label style={styles.label}>Email address</label>
-              <input
-                type="email"
-                placeholder="you@company.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                style={styles.input}
-              />
-            </div>
-
-            <div style={styles.field}>
-              <label style={styles.label}>Password</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={styles.input}
-              />
-            </div>
-
-            <button
-              type="button"
-              onClick={() => console.log("Forgot password")}
-              style={styles.forgot}
-            >
-              Forgot password?
-            </button>
-
-            {error && <p style={styles.error}>{error}</p>}
-
-            <button type="submit" disabled={loading} style={styles.submitBtn}>
-              {loading ? "Signing in..." : "Sign in"}
-            </button>
-          </form>
-
-          <div style={styles.dividerRow}>
-            <div style={styles.dividerLine} />
-            <span style={styles.dividerText}>or</span>
-            <div style={styles.dividerLine} />
+        <form onSubmit={handleSubmit} noValidate>
+          <div style={styles.field}>
+            <label style={styles.label}>Email</label>
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={styles.input}
+            />
           </div>
 
-          <p style={styles.signupLink}>
-            Don&apos;t have an account?{" "}
-            <button
-              onClick={() => console.log("Request access")}
-              style={styles.linkBtn}
-            >
-              Request access
-            </button>
-          </p>
-        </div>
+          <div style={styles.field}>
+            <label style={styles.label}>Password</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={styles.input}
+            />
+          </div>
+
+          {error && <p style={styles.error}>{error}</p>}
+
+          <button type="submit" disabled={loading} style={styles.btn}>
+            {loading ? "Signing in..." : "Login"}
+          </button>
+        </form>
+
+        <p style={styles.signup}>
+          Don&apos;t have an account?{" "}
+          <button onClick={() => navigate("/register")} style={styles.signupLink}>
+            Create Account
+          </button>
+        </p>
       </div>
     </div>
   );
@@ -112,128 +86,112 @@ export default function Login() {
 
 const styles = {
   root: {
-    display: "flex",
     minHeight: "100vh",
-    fontFamily: "'DM Sans', sans-serif",
-  },
-  left: {
-    width: "280px",
-    flexShrink: 0,
-    background: "#0f1c2e",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    padding: "2.5rem",
-  },
-  logo: {
-    fontFamily: "'DM Serif Display', serif",
-    color: "#e8e0d0",
-    fontSize: "22px",
-    letterSpacing: "-0.5px",
-  },
-  tagline: {
-    color: "#6b8aad",
-    fontSize: "13px",
-    lineHeight: 1.6,
-    margin: "0 0 1.25rem",
-  },
-  dots: { display: "flex", gap: "6px" },
-  dot: { width: "5px", height: "5px", borderRadius: "50%", background: "#1d3a56" },
-  dotActive: { background: "#4a85b5" },
-  footer: { color: "#3a5068", fontSize: "11px", margin: 0 },
-  right: {
-    flex: 1,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "2.5rem",
+    background: "#f5f0e8",
+    padding: "2rem",
+    fontFamily: "'Nunito', sans-serif",
+  },
+  card: {
     background: "#fff",
+    borderRadius: "20px",
+    padding: "2.5rem 2.5rem 2rem",
+    width: "100%",
+    maxWidth: "380px",
+    border: "1px solid #e8e0d0",
   },
-  card: { width: "100%", maxWidth: "340px" },
-  heading: {
-    fontFamily: "'DM Serif Display', serif",
-    fontSize: "26px",
-    fontWeight: 400,
-    color: "#111",
-    margin: "0 0 6px",
+  brand: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginBottom: "1.75rem",
   },
-  sub: { fontSize: "13px", color: "#666", margin: "0 0 2rem" },
+  iconBox: {
+    width: "56px",
+    height: "56px",
+    background: "#eaf3de",
+    borderRadius: "14px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: "12px",
+  },
+  title: {
+    fontFamily: "'Lora', serif",
+    fontSize: "22px",
+    fontWeight: 600,
+    color: "#27500A",
+    margin: "0 0 4px",
+    textAlign: "center",
+  },
+  sub: {
+    fontSize: "13px",
+    color: "#888780",
+    margin: 0,
+    textAlign: "center",
+  },
   field: { marginBottom: "1rem" },
   label: {
     display: "block",
-    fontSize: "11px",
-    fontWeight: 500,
-    color: "#666",
+    fontSize: "12px",
+    fontWeight: 600,
+    color: "#5F5E5A",
     marginBottom: "5px",
-    letterSpacing: "0.06em",
+    letterSpacing: "0.04em",
     textTransform: "uppercase",
   },
   input: {
     width: "100%",
     boxSizing: "border-box",
-    padding: "9px 12px",
+    padding: "10px 14px",
     fontSize: "14px",
-    fontFamily: "'DM Sans', sans-serif",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    background: "#f9f9f9",
-    color: "#111",
+    fontFamily: "'Nunito', sans-serif",
+    border: "1.5px solid #e0d8cc",
+    borderRadius: "10px",
+    background: "#faf8f4",
+    color: "#2C2C2A",
     outline: "none",
-  },
-  forgot: {
-    display: "block",
-    textAlign: "right",
-    fontSize: "12px",
-    color: "#378ADD",
-    marginBottom: "1.25rem",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    padding: 0,
-    fontFamily: "'DM Sans', sans-serif",
   },
   error: {
     fontSize: "13px",
-    color: "#c0392b",
-    margin: "0 0 0.75rem",
-    padding: "8px 12px",
-    background: "#fdf0ef",
-    borderRadius: "6px",
-  },
-  submitBtn: {
-    width: "100%",
-    padding: "10px",
-    background: "#0f1c2e",
-    color: "#e8e0d0",
-    border: "none",
+    color: "#A32D2D",
+    background: "#FCEBEB",
     borderRadius: "8px",
-    fontSize: "14px",
-    fontFamily: "'DM Sans', sans-serif",
-    fontWeight: 500,
+    padding: "8px 12px",
+    margin: "0 0 0.75rem",
+  },
+  btn: {
+    width: "100%",
+    padding: "11px",
+    background: "#3B6D11",
+    color: "#fff",
+    border: "none",
+    borderRadius: "10px",
+    fontSize: "15px",
+    fontFamily: "'Nunito', sans-serif",
+    fontWeight: 700,
     cursor: "pointer",
-    letterSpacing: "0.02em",
+    marginTop: "0.5rem",
   },
-  dividerRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    margin: "1.25rem 0",
-  },
-  dividerLine: { flex: 1, height: "1px", background: "#eee" },
-  dividerText: { fontSize: "11px", color: "#aaa", whiteSpace: "nowrap" },
-  signupLink: {
+  signup: {
     textAlign: "center",
-    fontSize: "12px",
-    color: "#666",
-    margin: 0,
+    fontSize: "13px",
+    color: "#888780",
+    margin: "1.25rem 0 0",
+    padding: "12px 16px",
+    background: "#eaf3de",
+    borderRadius: "10px",
   },
-  linkBtn: {
-    color: "#378ADD",
+  signupLink: {
+    color: "#3B6D11",
+    fontWeight: 700,
     background: "none",
     border: "none",
     cursor: "pointer",
-    fontSize: "12px",
-    fontFamily: "'DM Sans', sans-serif",
+    fontSize: "13px",
+    fontFamily: "'Nunito', sans-serif",
     padding: 0,
   },
 };
