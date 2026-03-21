@@ -57,7 +57,7 @@ export default function Login() {
             <label style={styles.label}>Password</label>
             <input
               type="password"
-              placeholder="••••••••"
+              placeholder=""
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={styles.input}
@@ -97,7 +97,7 @@ const styles = {
     borderRadius: "20px",
     padding: "2.5rem 2.5rem 2rem",
     width: "100%",
-    maxWidth: "380px",
+    maxWidth: "580px",
     border: "1px solid #e8e0d0",
   },
   brand: {
