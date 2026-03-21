@@ -31,15 +31,34 @@ export default function Register() {
       setError("Passwords do not match.");
       return;
     }
-
+    
     setLoading(true);
-    try {
-      console.log("Registering:", form);
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+try { // this is where I call the backend API to register the user
+  const response = await fetch("http://localhost:8080/api/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      password: form.password, // MAKE SURE ALL MATCHES IN BACKEND
+      emailComms: form.emailComms,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    setError(data.error || "Something went wrong.");
+    return;
+  }
+
+  navigate("/dashboard");
+} catch (err) {
+  setError("Could not connect to server.");
+} finally {
+  setLoading(false);
+}
   };
 
   return (
