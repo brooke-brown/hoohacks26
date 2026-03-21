@@ -33,7 +33,7 @@ export default function Register() {
     }
     
     setLoading(true);
-try { // this is where I call the backend API to register the user
+try { // BACKEND API TO REGISTER THE USER - MAKE SURE ALL FIELDS MATCH BACKEND EXPECTATIONS
   const response = await fetch("http://localhost:8080/api/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
