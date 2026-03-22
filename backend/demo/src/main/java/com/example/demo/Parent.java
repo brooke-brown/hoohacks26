@@ -1,17 +1,20 @@
-package com.example.demo;
-import jakarta.persistence.*;
-
-
 public class Parent {
-
     private Long id;
-
     private String first;
     private String last;
     private String email;
     private String password;
+    private ArrayList<Child> children;
     private boolean updates;
 
+    public Parent (String first, String last, String email, String password, boolean updates) {
+        this.first = first;
+        this.last = last;
+        this.email = email;
+        this.password = password;
+        this.children = new ArrayList();
+        this.updates = updates;
+    }
 
     public Long getId() {
         return id;
