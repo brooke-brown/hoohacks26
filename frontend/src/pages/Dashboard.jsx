@@ -66,10 +66,12 @@ export default function Dashboard() {
         .db-dropdown-menu {
             display: block;
             position: absolute;
-            top: 40px;
+            top: 34px;
+            padding-top: 12px;
+            margin-top: -2px;
             left: 0;
             background: #fff;
-            border: 1px solid #F5BF9A;
+            border: 1px solid #f8ca99;
             border-radius: 10px;
             padding: 6px;
             min-width: 160px;
@@ -79,16 +81,28 @@ export default function Dashboard() {
             pointer-events: none;
             transition: opacity 0.2s ease, transform 0.2s ease;
             }
+            .db-dropdown:hover {
+            background: #fff;
+            color: #9A3500 !important;
+            border-radius: 8px;
+        }
+            .db-dropdown-btn { 
+            color: #fff !important; 
+            }
+            .db-dropdown:hover .db-dropdown-btn { 
+            color: #9A3500; 
+            }
         .db-dropdown:hover .db-dropdown-menu {
-            background: #E8620A;
-            color: #fff;
+            background: #fff;
+            color: #f0d2b7;
             border-radius: 6px;
             opacity: 1;
             transform: translateY(0);
             pointer-events: all;
         }
-        .db-dropdown-item:hover { background: #FDF0E6; }
-        .db-post-btn:hover { background: #C45A1A !important; }
+
+        .db-dropdown-item:hover { background: #E8620A !important; color: #fff !important; }
+        .db-post-btn:hover { background: #fff !important; color: #9A3500 !important; border-radius: 8px; }
         .db-logout-btn:hover { background: rgba(255,255,255,0.3) !important; }
       `}</style>
 
@@ -166,7 +180,7 @@ const styles = {
   nav: { background: "#E8620A", padding: "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: "52px" },
   logo: { fontFamily: "'Lora', serif", color: "#fff", fontSize: "17px", display: "flex", alignItems: "center", gap: "8px" },
   navLinks: { display: "flex", alignItems: "center", gap: "4px" },
-  dropdownBtn: { background: "none", border: "none", color: "#fff", fontFamily: "'Nunito', sans-serif", fontSize: "13px", fontWeight: 600, padding: "6px 12px", borderRadius: "8px", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" },
+  dropdownBtn: { background: "none", border: "none", fontFamily: "'Nunito', sans-serif", fontSize: "13px", fontWeight: 600, padding: "6px 12px", borderRadius: "8px", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" },
   dropdownItem: { display: "block", padding: "8px 12px", fontSize: "13px", color: "#9A3500", borderRadius: "6px", cursor: "pointer" },
   logout: { background: "rgba(255,255,255,0.2)", color: "#fff", border: "none", borderRadius: "8px", padding: "6px 14px", fontFamily: "'Nunito', sans-serif", fontSize: "13px", cursor: "pointer", fontWeight: 600 },
   welcomeText: { fontFamily: "'Lora', serif", fontSize: "36px", color: "#9A3500", margin: 0 },
