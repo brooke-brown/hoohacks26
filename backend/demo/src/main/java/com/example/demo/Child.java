@@ -1,20 +1,29 @@
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+
+@Entity
 public class Child {
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String first;
+    private String last;
     private int age;
     private int grade;
 
-    public Child(String name, int age, int grade) {
-        this.name = name;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Parent parent;
+
+
+    public Child() {}
+
+    public Child(String first, String last, int age, int grade) {
+        this.first = first;
+        this.last = last;
         this.age = age;
         this.grade = grade;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getAge() {
@@ -31,5 +40,21 @@ public class Child {
 
     public void setGrade(int grade) {
         this.grade = grade;
+    }
+
+    public String getFirst() {
+        return first;
+    }
+
+    public void setFirst(String first) {
+        this.first = first;
+    }
+
+    public String getLast() {
+        return last;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
     }
 }

@@ -1,27 +1,33 @@
+import jakarta.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
+
+
+@Entity
 public class Parent {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String first;
     private String last;
     private String email;
     private String password;
-    private ArrayList<Child> children;
     private boolean updates;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<Child> children = new ArrayList<>();
+
+
+    public Parent() {}
 
     public Parent (String first, String last, String email, String password, boolean updates) {
         this.first = first;
         this.last = last;
         this.email = email;
         this.password = password;
-        this.children = new ArrayList();
         this.updates = updates;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirst() {
