@@ -9,13 +9,8 @@ const SAMPLE_POSTS = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [openDropdown, setOpenDropdown] = useState(null);
 
   const firstName = "firstName"; // TODO: REPLACE WITH REAL USER DATA FROM BACKEND
-
-  const toggleDropdown = (name) => {
-    setOpenDropdown(openDropdown === name ? null : name);
-  };
 
   const navItems = [
     {
@@ -69,26 +64,34 @@ export default function Dashboard() {
           opacity: 0;
         }
         .db-dropdown-menu {
-          display: none;
-          position: absolute;
-          top: 40px;
-          left: 0;
-          background: #fff;
-          border: 1px solid #F5BF9A;
-          border-radius: 10px;
-          padding: 6px;
-          min-width: 160px;
-          z-index: 100;
+            display: block;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background: #fff;
+            border: 1px solid #F5BF9A;
+            border-radius: 10px;
+            padding: 6px;
+            min-width: 160px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-8px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            }
+        .db-dropdown:hover .db-dropdown-menu {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
         }
-        .db-dropdown-menu.open { display: block; }
         .db-dropdown-item:hover { background: #FDF0E6; }
         .db-post-btn:hover { background: #C45A1A !important; }
         .db-logout-btn:hover { background: rgba(255,255,255,0.3) !important; }
       `}</style>
 
-      <div style={styles.root} onClick={() => setOpenDropdown(null)}>
+      <div style={styles.root}>
         {/* Navbar */}
-        <div style={styles.nav} onClick={(e) => e.stopPropagation()}>
+        <div style={styles.nav}>
           <div style={styles.logo}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path d="M4 19V6.5C4 5.4 4.9 4.5 6 4.5H18C19.1 4.5 20 5.4 20 6.5V19" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/>
@@ -100,15 +103,14 @@ export default function Dashboard() {
 
           <div style={styles.navLinks}>
             {navItems.map((item) => (
-              <div key={item.key} style={{ position: "relative" }}>
+              <div key={item.key} className="db-dropdown" style={{ position: "relative" }}>
                 <button
                   style={styles.dropdownBtn}
-                  onClick={() => toggleDropdown(item.key)}
                 >
                   {item.label}
                   <span style={styles.chevron} />
                 </button>
-                <div className={`db-dropdown-menu ${openDropdown === item.key ? "open" : ""}`}>
+                <div className="db-dropdown-menu">
                   {item.items.map((i) => (
                     <div key={i} className="db-dropdown-item" style={styles.dropdownItem}>{i}</div>
                   ))}
