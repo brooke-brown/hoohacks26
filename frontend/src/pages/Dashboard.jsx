@@ -80,6 +80,9 @@ export default function Dashboard() {
             transition: opacity 0.2s ease, transform 0.2s ease;
             }
         .db-dropdown:hover .db-dropdown-menu {
+            background: #E8620A;
+            color: #fff;
+            border-radius: 6px;
             opacity: 1;
             transform: translateY(0);
             pointer-events: all;
@@ -108,7 +111,6 @@ export default function Dashboard() {
                   style={styles.dropdownBtn}
                 >
                   {item.label}
-                  <span style={styles.chevron} />
                 </button>
                 <div className="db-dropdown-menu">
                   {item.items.map((i) => (
@@ -165,7 +167,6 @@ const styles = {
   logo: { fontFamily: "'Lora', serif", color: "#fff", fontSize: "17px", display: "flex", alignItems: "center", gap: "8px" },
   navLinks: { display: "flex", alignItems: "center", gap: "4px" },
   dropdownBtn: { background: "none", border: "none", color: "#fff", fontFamily: "'Nunito', sans-serif", fontSize: "13px", fontWeight: 600, padding: "6px 12px", borderRadius: "8px", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" },
-  chevron: { display: "inline-block", width: "8px", height: "8px", borderRight: "2px solid #fff", borderBottom: "2px solid #fff", transform: "rotate(45deg)", marginBottom: "2px" },
   dropdownItem: { display: "block", padding: "8px 12px", fontSize: "13px", color: "#9A3500", borderRadius: "6px", cursor: "pointer" },
   logout: { background: "rgba(255,255,255,0.2)", color: "#fff", border: "none", borderRadius: "8px", padding: "6px 14px", fontFamily: "'Nunito', sans-serif", fontSize: "13px", cursor: "pointer", fontWeight: 600 },
   welcomeText: { fontFamily: "'Lora', serif", fontSize: "36px", color: "#9A3500", margin: 0 },
